@@ -71,9 +71,104 @@ public:
     Vector(const Vector&) = delete; 
     Vector& operator=(const Vector&) = delete; 
 
-    Vector(Vector&& other)noexcept : data _(std::exchange(other.data_, nullptr)), 
+    Vector(Vector&& other)noexcept 
+        : data _(std::exchange(other.data_, nullptr)), 
+        size_(std::exchange(other.size_,0)), 
+        capacity_(std::exchange(other.capacity_,0)) 
+    {
 
-        
-}
+    }
+
+    Vector& operator=(Vector&& other) noexcept{
+        if(this != &other){
+            destroy(); 
+            data_ = std::exchange(other.data_, nullptr); 
+            size_ = std::exchange(other.size_, 0); 
+            capacity_ = std::exchange(other.capacity_, 0); 
+        }
+
+        return *this; 
+    }
+
+    ~Vector(){
+        destroy(); 
+    }
+
+    size_type size() const noexcept {return size_;}
+    size_type capacity() const noexcept {return capacity_;} 
+    bool empty() const noexcept {return size_ == 0;}
+
+    ptr data() noexcept {return data_;}
+    const_ptr data()  const noexcept{return data_;} 
+
+    ptr aligned_data() noexcept {return data_;} 
+    const_ptr aligned_data() noexcept {return data_;}
+
+    bool is_aligned() const noexcept{
+        return (size == 0) || (reinterpret_cast<uintptr_t>(data) % simd_alignment == 0); 
+    }
+
+    T& operator[](size_type i) noexcept{
+        return data_[i]; 
+    }
+
+    const T& operator[](size_type i) const noexcept{
+        return data_[i]; 
+    }
+
+    void resize(size_type new_size){
+        if(new_size == size_)
+            return; 
+
+        size_type new_capacity = padded_size<T>(new_size); 
+
+        if(new_capacity <= capacity_){
+            size_ = new_size; 
+            return; 
+        }
+
+        ptr new_data = static_cast(ptr)(
+            std::aligned_alloc(simd_alignment, new_capacity * sizeof(T))); 
+
+        if(!new_data){
+            throw std::bad_alloc(); 
+        }
+
+        if(data_)
+        {
+            std::memcpy(new_data, data_, size_ * sizeof(T)); 
+            std::free(data_); 
+        }
+        data_ = new_data; 
+        size_ = new_size; 
+        capacity_ = new_capacity; 
+    }
+
+    void refill(T value){
+        for(size_type = 0; i < size_; ++i){
+            data_[i] = value;
+        }
+    }
+
+    void clear() noexcept{
+        size_ = 0; 
+    }
+
+private:
+
+    void destroy() noexcept{
+        if(data_){
+            std::free(data_); 
+            data_ = nullptr; 
+        }
+        size_ = 0; 
+        capacity_ = 0; 
+    }
+
+    ptr data_ = nullptr; 
+    size_type size_ = 0; 
+    size_type capacity_ = 0; 
+}; 
 
 }
+#endif 
