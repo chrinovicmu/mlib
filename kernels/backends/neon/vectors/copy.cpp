@@ -1,4 +1,4 @@
-// kernels/neon/copy.cpp
+// backends/neon/vectors/copy.cpp
 
 #include <arm_neon.h>
 
@@ -6,50 +6,28 @@ namespace mlib {
 namespace kernels {
 
 template<>
-void copy<float>(const Vector<float>& x, Vector<float>& y) {
-    if (x.size() != y.size()) {
-        throw std::invalid_argument("Vector dimensions must match in copy");
-    }
-    if (x.empty()) {
-        return;
-    }
-
-    const size_t n = x.size();
-    const float* __restrict px = x.aligned_data();
-    float* __restrict py = y.aligned_data();
-
+void copy<float>(const float* __restrict src, float* __restrict dst, size_t count) {
     size_t i = 0;
-    for (; i + 4 <= n; i += 4) {
-        float32x4_t vx = vld1q_f32(px + i);
-        vst1q_f32(py + i, vx);
+    for (; i + 4 <= count; i += 4) {
+        float32x4_t v = vld1q_f32(src + i);
+        vst1q_f32(dst + i, v);
     }
 
-    for (; i < n; ++i) {
-        py[i] = px[i];
+    for (; i < count; ++i) {
+        dst[i] = src[i];
     }
 }
 
 template<>
-void copy<double>(const Vector<double>& x, Vector<double>& y) {
-    if (x.size() != y.size()) {
-        throw std::invalid_argument("Vector dimensions must match in copy");
-    }
-    if (x.empty()) {
-        return;
-    }
-
-    const size_t n = x.size();
-    const double* __restrict px = x.aligned_data();
-    double* __restrict py = y.aligned_data();
-
+void copy<double>(const double* __restrict src, double* __restrict dst, size_t count) {
     size_t i = 0;
-    for (; i + 2 <= n; i += 2) {
-        float64x2_t vx = vld1q_f64(px + i);
-        vst1q_f64(py + i, vx);
+    for (; i + 2 <= count; i += 2) {
+        float64x2_t v = vld1q_f64(src + i);
+        vst1q_f64(dst + i, v);
     }
 
-    for (; i < n; ++i) {
-        py[i] = px[i];
+    for (; i < count; ++i) {
+        dst[i] = src[i];
     }
 }
 

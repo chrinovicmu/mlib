@@ -1,27 +1,14 @@
+// backends/scalar/vectors/axpy.cpp
 
-#include <cstddef>
-#include <stdexcept>
-namespace  mlib{
+namespace mlib {
 namespace kernels {
 
-template<typename T> 
-void axpy(T alpha, const Vector<T>&, Vector<T>& y){
-    if(x.size() != y.size()){
-        throw std::invalid_argument("Vector dimensions mismatch in axpy"); 
-    }
-
-    if(x.empty())
-        return; 
-
-    const size_t n = x.size(); 
-    const T* __restrict px = x.data(); 
-    T* __restrict py = y.data(); 
-
-    for(size_t i = 0; i < n; ++i){
-        py[i] = alpha * px[i] + py[i]; 
+template<typename T>
+void axpy(T alpha, const T* __restrict x, T* __restrict y, size_t count) {
+    for (size_t i = 0; i < count; ++i) {
+        y[i] += alpha * x[i];
     }
 }
-}
 
-}
-
+} // namespace kernels
+} // namespace mlib

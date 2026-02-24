@@ -9,25 +9,39 @@ namespace mlib {
 namespace kernels {
 
 template<typename T>
-void scal(T alpha, Vector<T>& x);
+void scal(T alpha, T* __restrict x, size_t count);
 
 inline void scal_p32(float alpha, Vector<float>& x) {
-    scal(alpha, x);
+    if (x.empty()) {
+        return;
+    }
+    if (alpha == 0.0f) {
+        return;
+    }
+
+    scal(alpha, x.aligned_data(), x.size());
 }
 
 inline void scal_p64(double alpha, Vector<double>& x) {
-    scal(alpha, x);
+    if (x.empty()) {
+        return;
+    }
+    if (alpha == 0.0) {
+        return;
+    }
+
+    scal(alpha, x.aligned_data(), x.size());
 }
 
 } // namespace kernels
 } // namespace mlib
 
 #if defined(__AVX2__)
-    #include "../avx2/scal.cpp"
+    #include "../../backends/avx2/vectors/scal.cpp"
 #elif defined(__ARM_NEON)
-    #include "../neon/scal.cpp"
+    #include "../../backends/neon/vectors/scal.cpp"
 #else
-    #include "../scalar/scal.cpp"
+    #include "../../backends/scalar/vectors/scal.cpp"
 #endif
 
 #endif

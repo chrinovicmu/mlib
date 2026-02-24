@@ -1,74 +1,42 @@
-#ifndef MLIB_KERNELS_NEON_AXPY_HPP
-#define MLIB_KERNELS_NEON_AXPY_HPP
 
-#include <lin/vector.hpp>
 #include <arm_neon.h>
-#include <stdexcept>
 
-namespace mlibs {
+namespace mlib {
 namespace kernels {
-namespace neon {
 
 template<>
-inline void axpy<float>(float alpha, const Vector<float>& x, Vector<float>& y) {
-
-    if (x.size() != y.size()) throw std::invalid_argument("size mismatch");
-    if (x.empty()) return;
-
-    const size_t n = x.size();
-    const float* __restrict px = x.aligned_data();
-    float* __restrict py = y.aligned_data();
-
+void axpy<float>(float alpha, const float* __restrict x, float* __restrict y, size_t count) {
     const float32x4_t valpha = vdupq_n_f32(alpha);
 
     size_t i = 0;
-    for (; i + 4 <= n; i += 4) {
-        float32x4_t vx = vld1q_f32(px + i);
-        float32x4_t vy = vld1q_f32(py + i);
+    for (; i + 4 <= count; i += 4) {
+        float32x4_t vx = vld1q_f32(x + i);
+        float32x4_t vy = vld1q_f32(y + i);
         float32x4_t r  = vfmaq_f32(vy, vx, valpha);
-        vst1q_f32(py + i, r);
+        vst1q_f32(y + i, r);
     }
 
-    for (; i < n; ++i) {
-        py[i] = alpha * px[i] + py[i];
+    for (; i < count; ++i) {
+        y[i] += alpha * x[i];
     }
 }
 
 template<>
-inline void axpy<double>(double alpha, const Vector<double>& x, Vector<double>& y) {
-
-    if (x.size() != y.size()) throw std::invalid_argument("size mismatch");
-    if (x.empty()) return;
-
-    const size_t n = x.size();
-    const double* __restrict px = x.aligned_data();
-    double* __restrict py = y.aligned_data();
-
+void axpy<double>(double alpha, const double* __restrict x, double* __restrict y, size_t count) {
     const float64x2_t valpha = vdupq_n_f64(alpha);
 
     size_t i = 0;
-    for (; i + 2 <= n; i += 2) {
-        float64x2_t vx = vld1q_f64(px + i);
-        float64x2_t vy = vld1q_f64(py + i);
+    for (; i + 2 <= count; i += 2) {
+        float64x2_t vx = vld1q_f64(x + i);
+        float64x2_t vy = vld1q_f64(y + i);
         float64x2_t r  = vfmaq_f64(vy, vx, valpha);
-        vst1q_f64(py + i, r);
+        vst1q_f64(y + i, r);
     }
 
-    for (; i < n; ++i) {
-        py[i] = alpha * px[i] + py[i];
+    for (; i < count; ++i) {
+        y[i] += alpha * x[i];
     }
 }
 
-inline void saxpy(float alpha, const Vector<float>& x, Vector<float>& y) {
-    axpy(alpha, x, y);
-}
-
-inline void daxpy(double alpha, const Vector<double>& x, Vector<double>& y) {
-    axpy(alpha, x, y);
-}
-
-} // namespace neon
 } // namespace kernels
-} // namespace lin
-
-#endif
+} // namespace mlib
