@@ -1,4 +1,5 @@
+add_executable(basic_vector_op basic_vector_op.cpp)
+target_link_libraries(basic_vector_op PRIVATE mlib mlib_kernels)
 
-add_executable(example_basic basic.cpp)
-target_link_libraries(example_basic PRIVATE mlib mlib_kernels)
-
+add_executable(vector_elementwise vector_elementwise.cpp)
+target_link_libraries(vector_elementwise PRIVATE mlib mlib_kernels)

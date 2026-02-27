@@ -1,5 +1,5 @@
 // backends/scalar/vectors/scal.cpp
-
+#include <cstddef>
 namespace mlib {
 namespace kernels {
 
