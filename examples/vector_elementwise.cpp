@@ -1,6 +1,6 @@
 
 #include <mlib/vector.hpp>
-#include <mlib/kernels/vectors/elementwise.hpp>
+#include <mlib/kernels.hpp> 
 
 #include <iostream>
 #include <iomanip>

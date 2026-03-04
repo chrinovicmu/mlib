@@ -1,9 +1,5 @@
 #include <mlib/vector.hpp>
-#include <mlib/kernels/vectors/axpy.hpp>
-#include <mlib/kernels/vectors/scal.hpp>
-#include <mlib/kernels/vectors/copy.hpp>
-#include <mlib/kernels/vectors/swap.hpp>
-#include <mlib/kernels/vectors/dot.hpp>
+#include <mlib/kernels.hpp>
 
 #include <iostream>
 #include <iomanip>
