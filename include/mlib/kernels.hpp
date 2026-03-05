@@ -8,6 +8,6 @@
 #include "kernels/vectors/swap.hpp"
 #include "kernels/vectors/dot.hpp"
 #include "kernels/vectors/elementwise.hpp"
-#include "kernels/vectors/norms.hpp"    // l1_norm / l2_norm if implemented
-
+#include "kernels/vectors/norms.hpp"
+#include "kernels/vectors/norms_inf.hpp"
 #endif
