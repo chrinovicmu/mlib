@@ -1,5 +1,7 @@
-add_executable(basic_vector_op basic_vector_op.cpp)
-target_link_libraries(basic_vector_op PRIVATE mlib mlib_kernels)
-
-add_executable(vector_elementwise vector_elementwise.cpp)
-target_link_libraries(vector_elementwise PRIVATE mlib mlib_kernels)
+foreach(api_example IN ITEMS api_vectors api_gemv api_gemm)
+    add_executable(${api_example} ${api_example}.cpp)
+    target_link_libraries(${api_example} PRIVATE mlib::mlib)
+    target_compile_options(${api_example} PRIVATE -Wall -Wextra -Wpedantic)
+    add_test(NAME ${api_example} COMMAND ${api_example})
+    set_tests_properties(${api_example} PROPERTIES LABELS "api")
+endforeach()
