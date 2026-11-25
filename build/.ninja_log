@@ -1,0 +1,4 @@
+# ninja log v5
+12	72	1795609138866417456	libmlib.a	352082146d8d2caf
+1	410	1795606926676490993	CMakeFiles/mlib.dir/src/backends/generic.cpp.o	31f09b7819490d4c
+1	1388	1795606927656489556	CMakeFiles/mlib.dir/src/backends/x86_64/avx2.cpp.o	2d2fa78226a0ae2d

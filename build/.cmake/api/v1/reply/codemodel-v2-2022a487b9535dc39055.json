@@ -1,0 +1,124 @@
+{
+	"configurations" : 
+	[
+		{
+			"directories" : 
+			[
+				{
+					"build" : ".",
+					"childIndexes" : 
+					[
+						1
+					],
+					"jsonFile" : "directory-.-Release-f5ebdc15457944623624.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.20"
+					},
+					"projectIndex" : 0,
+					"source" : ".",
+					"targetIndexes" : 
+					[
+						0
+					]
+				},
+				{
+					"build" : "tests",
+					"jsonFile" : "directory-tests-Release-b01f6abb0ab61427ef3b.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.20"
+					},
+					"parentIndex" : 0,
+					"projectIndex" : 0,
+					"source" : "tests",
+					"targetIndexes" : 
+					[
+						1,
+						2,
+						3,
+						4,
+						5
+					]
+				}
+			],
+			"name" : "Release",
+			"projects" : 
+			[
+				{
+					"directoryIndexes" : 
+					[
+						0,
+						1
+					],
+					"name" : "mlib",
+					"targetIndexes" : 
+					[
+						0,
+						1,
+						2,
+						3,
+						4,
+						5
+					]
+				}
+			],
+			"targets" : 
+			[
+				{
+					"directoryIndex" : 0,
+					"id" : "mlib::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-mlib-Release-b344d8e4bdaf4e5740e5.json",
+					"name" : "mlib",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 1,
+					"id" : "test_kernel_contracts::@a44f0ac069e85531cdee",
+					"jsonFile" : "target-test_kernel_contracts-Release-0667087a044bf26efa96.json",
+					"name" : "test_kernel_contracts",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 1,
+					"id" : "test_level1::@a44f0ac069e85531cdee",
+					"jsonFile" : "target-test_level1-Release-7ebdf2153c8180653546.json",
+					"name" : "test_level1",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 1,
+					"id" : "test_level23::@a44f0ac069e85531cdee",
+					"jsonFile" : "target-test_level23-Release-913e1c2592df00eec4e0.json",
+					"name" : "test_level23",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 1,
+					"id" : "test_print::@a44f0ac069e85531cdee",
+					"jsonFile" : "target-test_print-Release-5fb484e3601ac2d7b92c.json",
+					"name" : "test_print",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 1,
+					"id" : "test_tensor::@a44f0ac069e85531cdee",
+					"jsonFile" : "target-test_tensor-Release-82ca5f3b4f27942401b7.json",
+					"name" : "test_tensor",
+					"projectIndex" : 0
+				}
+			]
+		}
+	],
+	"kind" : "codemodel",
+	"paths" : 
+	{
+		"build" : "/home/chrinovic/Workspace/Projects/mlib/build",
+		"source" : "/home/chrinovic/Workspace/Projects/mlib"
+	},
+	"version" : 
+	{
+		"major" : 2,
+		"minor" : 4
+	}
+}

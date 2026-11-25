@@ -1,0 +1,62 @@
+[
+{
+  "directory": "/home/chrinovic/Workspace/Projects/mlib/build",
+  "command": "/usr/bin/c++ -I/home/chrinovic/Workspace/Projects/mlib/include -I/home/chrinovic/Workspace/Projects/mlib/build/include -O3 -DNDEBUG -flto=auto -fno-fat-lto-objects -Wall -Wextra -Wpedantic -Wconversion -Wsign-conversion -Wshadow -Wold-style-cast -std=c++17 -o CMakeFiles/mlib.dir/src/backends/generic.cpp.o -c /home/chrinovic/Workspace/Projects/mlib/src/backends/generic.cpp",
+  "file": "/home/chrinovic/Workspace/Projects/mlib/src/backends/generic.cpp"
+},
+{
+  "directory": "/home/chrinovic/Workspace/Projects/mlib/build",
+  "command": "/usr/bin/c++ -I/home/chrinovic/Workspace/Projects/mlib/include -I/home/chrinovic/Workspace/Projects/mlib/build/include -O3 -DNDEBUG -flto=auto -fno-fat-lto-objects -Wall -Wextra -Wpedantic -Wconversion -Wsign-conversion -Wshadow -Wold-style-cast -std=c++17 -mavx2 -mfma -o CMakeFiles/mlib.dir/src/backends/x86_64/avx2.cpp.o -c /home/chrinovic/Workspace/Projects/mlib/src/backends/x86_64/avx2.cpp",
+  "file": "/home/chrinovic/Workspace/Projects/mlib/src/backends/x86_64/avx2.cpp"
+},
+{
+  "directory": "/home/chrinovic/Workspace/Projects/mlib/build",
+  "command": "/usr/bin/c++ -I/home/chrinovic/Workspace/Projects/mlib/tests -I/home/chrinovic/Workspace/Projects/mlib/include -I/home/chrinovic/Workspace/Projects/mlib/build/include -O3 -DNDEBUG -Wall -Wextra -std=c++17 -o tests/CMakeFiles/test_tensor.dir/test_tensor.cpp.o -c /home/chrinovic/Workspace/Projects/mlib/tests/test_tensor.cpp",
+  "file": "/home/chrinovic/Workspace/Projects/mlib/tests/test_tensor.cpp"
+},
+{
+  "directory": "/home/chrinovic/Workspace/Projects/mlib/build",
+  "command": "/usr/bin/c++ -I/home/chrinovic/Workspace/Projects/mlib/tests -I/home/chrinovic/Workspace/Projects/mlib/include -I/home/chrinovic/Workspace/Projects/mlib/build/include -O3 -DNDEBUG -Wall -Wextra -std=c++17 -o tests/CMakeFiles/test_tensor.dir/main.cpp.o -c /home/chrinovic/Workspace/Projects/mlib/tests/main.cpp",
+  "file": "/home/chrinovic/Workspace/Projects/mlib/tests/main.cpp"
+},
+{
+  "directory": "/home/chrinovic/Workspace/Projects/mlib/build",
+  "command": "/usr/bin/c++ -I/home/chrinovic/Workspace/Projects/mlib/tests -I/home/chrinovic/Workspace/Projects/mlib/include -I/home/chrinovic/Workspace/Projects/mlib/build/include -O3 -DNDEBUG -Wall -Wextra -std=c++17 -o tests/CMakeFiles/test_print.dir/test_print.cpp.o -c /home/chrinovic/Workspace/Projects/mlib/tests/test_print.cpp",
+  "file": "/home/chrinovic/Workspace/Projects/mlib/tests/test_print.cpp"
+},
+{
+  "directory": "/home/chrinovic/Workspace/Projects/mlib/build",
+  "command": "/usr/bin/c++ -I/home/chrinovic/Workspace/Projects/mlib/tests -I/home/chrinovic/Workspace/Projects/mlib/include -I/home/chrinovic/Workspace/Projects/mlib/build/include -O3 -DNDEBUG -Wall -Wextra -std=c++17 -o tests/CMakeFiles/test_print.dir/main.cpp.o -c /home/chrinovic/Workspace/Projects/mlib/tests/main.cpp",
+  "file": "/home/chrinovic/Workspace/Projects/mlib/tests/main.cpp"
+},
+{
+  "directory": "/home/chrinovic/Workspace/Projects/mlib/build",
+  "command": "/usr/bin/c++ -I/home/chrinovic/Workspace/Projects/mlib/tests -I/home/chrinovic/Workspace/Projects/mlib/include -I/home/chrinovic/Workspace/Projects/mlib/build/include -O3 -DNDEBUG -Wall -Wextra -std=c++17 -o tests/CMakeFiles/test_level1.dir/test_level1.cpp.o -c /home/chrinovic/Workspace/Projects/mlib/tests/test_level1.cpp",
+  "file": "/home/chrinovic/Workspace/Projects/mlib/tests/test_level1.cpp"
+},
+{
+  "directory": "/home/chrinovic/Workspace/Projects/mlib/build",
+  "command": "/usr/bin/c++ -I/home/chrinovic/Workspace/Projects/mlib/tests -I/home/chrinovic/Workspace/Projects/mlib/include -I/home/chrinovic/Workspace/Projects/mlib/build/include -O3 -DNDEBUG -Wall -Wextra -std=c++17 -o tests/CMakeFiles/test_level1.dir/main.cpp.o -c /home/chrinovic/Workspace/Projects/mlib/tests/main.cpp",
+  "file": "/home/chrinovic/Workspace/Projects/mlib/tests/main.cpp"
+},
+{
+  "directory": "/home/chrinovic/Workspace/Projects/mlib/build",
+  "command": "/usr/bin/c++ -I/home/chrinovic/Workspace/Projects/mlib/tests -I/home/chrinovic/Workspace/Projects/mlib/include -I/home/chrinovic/Workspace/Projects/mlib/build/include -O3 -DNDEBUG -Wall -Wextra -std=c++17 -o tests/CMakeFiles/test_level23.dir/test_level23.cpp.o -c /home/chrinovic/Workspace/Projects/mlib/tests/test_level23.cpp",
+  "file": "/home/chrinovic/Workspace/Projects/mlib/tests/test_level23.cpp"
+},
+{
+  "directory": "/home/chrinovic/Workspace/Projects/mlib/build",
+  "command": "/usr/bin/c++ -I/home/chrinovic/Workspace/Projects/mlib/tests -I/home/chrinovic/Workspace/Projects/mlib/include -I/home/chrinovic/Workspace/Projects/mlib/build/include -O3 -DNDEBUG -Wall -Wextra -std=c++17 -o tests/CMakeFiles/test_level23.dir/main.cpp.o -c /home/chrinovic/Workspace/Projects/mlib/tests/main.cpp",
+  "file": "/home/chrinovic/Workspace/Projects/mlib/tests/main.cpp"
+},
+{
+  "directory": "/home/chrinovic/Workspace/Projects/mlib/build",
+  "command": "/usr/bin/c++ -I/home/chrinovic/Workspace/Projects/mlib/tests -I/home/chrinovic/Workspace/Projects/mlib/include -I/home/chrinovic/Workspace/Projects/mlib/build/include -O3 -DNDEBUG -Wall -Wextra -std=c++17 -o tests/CMakeFiles/test_kernel_contracts.dir/test_kernel_contracts.cpp.o -c /home/chrinovic/Workspace/Projects/mlib/tests/test_kernel_contracts.cpp",
+  "file": "/home/chrinovic/Workspace/Projects/mlib/tests/test_kernel_contracts.cpp"
+},
+{
+  "directory": "/home/chrinovic/Workspace/Projects/mlib/build",
+  "command": "/usr/bin/c++ -I/home/chrinovic/Workspace/Projects/mlib/tests -I/home/chrinovic/Workspace/Projects/mlib/include -I/home/chrinovic/Workspace/Projects/mlib/build/include -O3 -DNDEBUG -Wall -Wextra -std=c++17 -o tests/CMakeFiles/test_kernel_contracts.dir/main.cpp.o -c /home/chrinovic/Workspace/Projects/mlib/tests/main.cpp",
+  "file": "/home/chrinovic/Workspace/Projects/mlib/tests/main.cpp"
+}
+]

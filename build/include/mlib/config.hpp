@@ -1,0 +1,8 @@
+#pragma once
+
+#define MLIB_TARGET_ISA_AVX2 1
+#define MLIB_TARGET_ISA_NAME "avx2"
+
+#define MLIB_VERSION_MAJOR 0
+#define MLIB_VERSION_MINOR 1
+#define MLIB_VERSION_PATCH 0

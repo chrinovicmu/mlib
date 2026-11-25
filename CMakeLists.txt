@@ -227,7 +227,6 @@ endif()
 if(MLIB_BUILD_TESTS)
     enable_testing()
     add_subdirectory(tests)
-    add_subdirectory(test)
 endif()
 
 if(MLIB_BUILD_BENCH)
