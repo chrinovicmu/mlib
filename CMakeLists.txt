@@ -1,3 +1,6 @@
+# =============================================================================
+# mlib -- top-level build
+#
 # Structure of this file, in the order things must happen:
 #   1. language / standard setup
 #   2. options
@@ -20,11 +23,13 @@ cmake_minimum_required(VERSION 3.20)
 # the other backends need only the C++ compiler.
 project(mlib VERSION 0.1.0 LANGUAGES CXX)
 
+# -----------------------------------------------------------------------------
 # Standard and global posture.
 #
 # Note what is NOT set globally: any ISA flag. Those are attached per
 # source file -- see the set_source_files_properties call below, and the
 # rationale in cmake/DetectTarget.cmake.
+# -----------------------------------------------------------------------------
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)   # error out rather than silently using C++14
 set(CMAKE_CXX_EXTENSIONS OFF)         # -std=c++17, not -std=gnu++17: no GNU extensions
@@ -44,7 +49,9 @@ if(NOT CMAKE_BUILD_TYPE AND NOT CMAKE_CONFIGURATION_TYPES)
     set(CMAKE_BUILD_TYPE Release CACHE STRING "" FORCE)
 endif()
 
+# -----------------------------------------------------------------------------
 # Options
+# -----------------------------------------------------------------------------
 option(MLIB_BUILD_TESTS "Build the test suite"   ON)
 option(MLIB_BUILD_BENCH "Build benchmarks"       OFF)  # Phase 7
 option(MLIB_ENABLE_LTO  "Link-time optimization" ON)
@@ -58,12 +65,24 @@ option(MLIB_USE_LLVM_PASSES
 
 # Resolves MLIB_ARCH and sets MLIB_ARCH_UPPER + MLIB_ACTIVE_ISA_FLAGS.
 # Must run before configure_file below, which consumes MLIB_ARCH_UPPER.
-include(cmake/DetectTarget.cmake)
+include("${CMAKE_CURRENT_SOURCE_DIR}/cmake/DetectTarget.cmake")
+
+# Older copies expose mlib_isa_source() and only list a single .cpp file.
+# Require the matching detector so assembly companions cannot be omitted.
+if(NOT COMMAND mlib_isa_sources)
+    message(FATAL_ERROR
+        "mlib: incompatible CMake files. cmake/DetectTarget.cmake must define "
+        "mlib_isa_sources(), which lists both C++ and assembly sources. "
+        "Update the complete mlib source directory, including CMakeLists.txt, "
+        "cmake/DetectTarget.cmake, and src/backends/, from the same version, "
+        "then configure again. Older detectors define mlib_isa_source() instead.")
+endif()
 
 if(MLIB_ARCH STREQUAL "avx512" OR MLIB_ARCH STREQUAL "rvv")
     enable_language(ASM)
 endif()
 
+# -----------------------------------------------------------------------------
 # Generated config.hpp
 #
 # Written into the BUILD tree, never the source tree. That is what lets
@@ -75,11 +94,13 @@ endif()
 # @ONLY restricts substitution to @VAR@ and leaves ${VAR} untouched. The
 # template contains no ${} today, but without @ONLY any future shell or
 # CMake-looking text in a comment would be silently eaten.
+# -----------------------------------------------------------------------------
 configure_file(
     "${CMAKE_CURRENT_SOURCE_DIR}/include/mlib/config.hpp.in"
     "${CMAKE_CURRENT_BINARY_DIR}/include/mlib/config.hpp"
     @ONLY)
 
+# -----------------------------------------------------------------------------
 # Kernel source selection.
 #
 # generic.cpp is ALWAYS in the list, even when another ISA is active. Two
@@ -91,6 +112,10 @@ configure_file(
 #
 # The active ISA's sources are appended only when it differs, so a generic
 # build does not list the same file twice.
+# -----------------------------------------------------------------------------
+# All paths come from mlib_isa_sources() in DetectTarget.cmake rather than
+# being spelled out here, so src/backends/ can be reorganised without
+# touching this file.
 mlib_isa_sources(generic MLIB_GENERIC_SOURCE)
 set(MLIB_KERNEL_SOURCES "${MLIB_GENERIC_SOURCE}")
 if(NOT MLIB_ARCH STREQUAL "generic")
@@ -106,6 +131,7 @@ if(MLIB_USE_LLVM_PASSES)
         "wired up yet.")
 endif()
 
+# -----------------------------------------------------------------------------
 # The library.
 #
 # STATIC by default. This is a design decision, not a default inherited
@@ -115,6 +141,7 @@ endif()
 # inline C++ kernels and trait wrappers. The external .S primitives remain
 # out-of-line native functions: LTO does not rewrite their instructions.
 # This target is explicitly STATIC regardless of BUILD_SHARED_LIBS.
+# -----------------------------------------------------------------------------
 add_library(mlib STATIC ${MLIB_KERNEL_SOURCES})
 
 # Namespaced alias so in-tree consumers write mlib::mlib exactly as
@@ -191,19 +218,24 @@ if(MLIB_ENABLE_LTO AND CMAKE_BUILD_TYPE MATCHES "Release|RelWithDebInfo")
     endif()
 endif()
 
+# -----------------------------------------------------------------------------
 # Subdirectories
 #
 # enable_testing() must be called in THIS file, not in tests/, for `ctest`
 # to work from the top-level build directory.
+# -----------------------------------------------------------------------------
 if(MLIB_BUILD_TESTS)
     enable_testing()
     add_subdirectory(tests)
+    add_subdirectory(test)
 endif()
 
 if(MLIB_BUILD_BENCH)
     add_subdirectory(bench)
 endif()
 
+# -----------------------------------------------------------------------------
+# Configuration summary.
 #
 # Printed last so it is the final thing on screen after a configure. The
 # active-ISA line in particular is what tells you whether the fallback in
@@ -212,6 +244,7 @@ endif()
 # The library-kind string is built with if/else rather than a generator
 # expression, because message() does NOT evaluate generator expressions --
 # it would print the literal "$<IF:$<BOOL:>,shared,static>".
+# -----------------------------------------------------------------------------
 set(_lib_kind "static (LTO=${MLIB_ENABLE_LTO})")
 
 message(STATUS "")
